@@ -1,5 +1,6 @@
 const { compareToken } = require('../helpers/jsonWebToken')
 const fs = require('fs')
+const path = require('path')
 
 const auth = (req, res, next) => {
     try {
@@ -15,7 +16,7 @@ const auth = (req, res, next) => {
         const tokenAuthorization = req.headers.authorization.split(" ")[1]
         const authorization = compareToken(tokenAuthorization)
 
-        fs.readFile('../LatRestAPI/data/users.json', (err, data) => {
+        fs.readFile(path.join(__dirname, '../data/users.json'), (err, data) => {
             if (err) {
                 console.log(err);
                 return
